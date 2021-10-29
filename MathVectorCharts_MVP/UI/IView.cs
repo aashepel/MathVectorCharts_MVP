@@ -9,5 +9,7 @@ namespace MathVectorCharts_MVP.UI
     public interface IView
     {
         void ShowErrorMessage(string message);
+        void Show();
+        void Close();
     }
 }

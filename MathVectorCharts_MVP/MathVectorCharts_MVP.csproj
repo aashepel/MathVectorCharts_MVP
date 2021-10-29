@@ -61,10 +61,10 @@
     <Compile Include="Tools\Parsers\CsvParser.cs" />
     <Compile Include="Tools\Parsers\Interfaces\ICsvParser.cs" />
     <Compile Include="Tools\Parsers\Interfaces\IParser.cs" />
-    <Compile Include="UI\ChartsModel.cs" />
-    <Compile Include="UI\ChartsPresenter.cs" />
-    <Compile Include="UI\IChartsModel.cs" />
-    <Compile Include="UI\IChartsView.cs" />
+    <Compile Include="UI\ChartsUI\ChartsService.cs" />
+    <Compile Include="UI\ChartsUI\ChartsPresenter.cs" />
+    <Compile Include="UI\ChartsUI\IChartsService.cs" />
+    <Compile Include="UI\ChartsUI\IChartsView.cs" />
     <Compile Include="UI\IView.cs" />
     <Compile Include="View.cs">
       <SubType>Form</SubType>

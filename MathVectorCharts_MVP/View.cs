@@ -1,5 +1,6 @@
 ﻿using MathVectorCharts_MVP.Models;
 using MathVectorCharts_MVP.UI;
+using MathVectorCharts_MVP.UI.ChartsUI;
 using MathVectorCharts_MVP.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace MathVectorCharts_MVP
         public View()
         {
             InitializeComponent();
-            _presenter = new ChartsPresenter(this, new ChartsModel());
+            _presenter = new ChartsPresenter(this, new ChartsService());
             _barCharts.Add(chartBar_1);
             _barCharts.Add(chartBar_2);
             _barCharts.Add(chartBar_3);

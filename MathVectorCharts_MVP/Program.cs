@@ -1,4 +1,5 @@
 ﻿using MathVectorCharts_MVP.UI;
+using MathVectorCharts_MVP.UI.ChartsUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,14 +18,6 @@ namespace MathVectorCharts_MVP
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-
-            /// MVP BINDING ///
-            //var view = new View();
-            //var service = new Service();
-            //var presenter = new Presenter(view, service);
-            /// MVP BINDING ///
-
-
             Application.Run(new View());
         }
     }

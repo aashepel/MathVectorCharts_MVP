@@ -8,18 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathVectorCharts_MVP.UI
+namespace MathVectorCharts_MVP.UI.ChartsUI
 {
-    public class ChartsModel : IChartsModel
+    public class ChartsService : IChartsService
     {
         IrisesDataSet _dataSet;
         IParser<Iris> _parser;
-        public ChartsModel()
+        public ChartsService()
         {
             _dataSet = new IrisesDataSet();
             _parser = new CsvIrisParser(null, ',');
         }
-        List<BarChartInfo> IChartsModel.LoadBarChartsInfo()
+        List<BarChartInfo> IChartsService.LoadBarChartsInfo()
         {
             if (!_parser.SuccessfullyParsed)
             {
@@ -40,7 +40,7 @@ namespace MathVectorCharts_MVP.UI
             return barChartsInfo;
         }
 
-        PieChartInfo IChartsModel.LoadPieChartInfo()
+        PieChartInfo IChartsService.LoadPieChartInfo()
         {
             if (!_parser.SuccessfullyParsed)
             {
@@ -61,7 +61,7 @@ namespace MathVectorCharts_MVP.UI
             return pieChartInfo;
         }
 
-        void IChartsModel.LoadIrises(string filePath)
+        void IChartsService.LoadIrises(string filePath)
         {
             _parser.Parse(filePath);
             _dataSet.Irises = new List<Iris>(_parser.Records);

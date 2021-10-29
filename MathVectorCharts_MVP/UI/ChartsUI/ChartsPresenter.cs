@@ -5,28 +5,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace MathVectorCharts_MVP.UI
+namespace MathVectorCharts_MVP.UI.ChartsUI
 {
     public class ChartsPresenter
     {
         private readonly IChartsView _view;
-        private readonly IChartsModel _model;
+        private readonly IChartsService _service;
 
-        public ChartsPresenter(IChartsView view, IChartsModel model)
+        public ChartsPresenter(IChartsView view, IChartsService model)
         {
             _view = view;
-            _model = model;
+            _service = model;
         }
 
         public void LoadCharts()
         {
-            _view.RenderBarCharts(_model.LoadBarChartsInfo());
-            _view.RenderPieChart(_model.LoadPieChartInfo());
+            _view.RenderBarCharts(_service.LoadBarChartsInfo());
+            _view.RenderPieChart(_service.LoadPieChartInfo());
         }
 
         public void LoadIrises(string filePath)
         {
-            _model.LoadIrises(filePath);
+            _service.LoadIrises(filePath);
         }
 
         public void ClearAllCharts()

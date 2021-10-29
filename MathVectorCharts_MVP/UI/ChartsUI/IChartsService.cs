@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathVectorCharts_MVP.UI
+namespace MathVectorCharts_MVP.UI.ChartsUI
 {
-    public interface IChartsModel
+    public interface IChartsService
     {
         List<BarChartInfo> LoadBarChartsInfo();
         PieChartInfo LoadPieChartInfo();
