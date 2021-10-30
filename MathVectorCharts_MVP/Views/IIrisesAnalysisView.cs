@@ -9,14 +9,16 @@ namespace MathVectorCharts_MVP.Views
     {
         void RenderBarCharts(List<BarChartInfo> chartsInfo);
         void RenderPieChart(PieChartInfo pieChartInfo);
+        void SetLabelFilePath(string filePath);
         void OpenFileViaNotePad(string filePath);
         DialogResult ShowFileSelector();
-        void ShowRenderMessageBox();
+        DialogResult ShowRenderMessageBox();
         void ClearAllCharts();
         event Action OpenFile;
         event Action RenderCharts;
         event Action OpenNotePad;
         event Action ReOpenFile;
         event Action ClearCharts;
+        event Action<string> ChangeFilePath;
     }
 }

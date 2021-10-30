@@ -8,18 +8,18 @@ namespace MathVectorCharts_MVP.Presenters
     {
         private readonly IIrisesAnalysisView _view;
         private readonly IChartsService _service;
-        public event Action<string> ChangeFilePath;
 
-        public IrisesAnalysisPresenter(IIrisesAnalysisView view, IChartsService model)
+        public IrisesAnalysisPresenter(IIrisesAnalysisView view, IChartsService service)
         {
             _view = view;
-            _service = model;
+            _service = service;
 
             _view.OpenFile += () => ShowFileSelector();
             _view.RenderCharts += () => RenderAllCharts();
             _view.OpenNotePad += () => OpenFileViaNotePad();
             _view.ReOpenFile += () => ReLoadCharts();
             _view.ClearCharts += () => ClearAllCharts();
+            _view.ChangeFilePath += filePath => FilePath = filePath;
         }
 
         public string FilePath
@@ -30,8 +30,8 @@ namespace MathVectorCharts_MVP.Presenters
             }
             set
             {
-                ChangeFilePath.Invoke(value);
                 _service.FilePath = value;
+                _view.SetLabelFilePath(value);
             }
         }
         
@@ -39,6 +39,7 @@ namespace MathVectorCharts_MVP.Presenters
         {
             try
             {
+                ClearAllCharts();
                 _view.RenderBarCharts(_service.LoadBarChartsInfo());
                 _view.RenderPieChart(_service.LoadPieChartInfo());
             }
@@ -52,13 +53,16 @@ namespace MathVectorCharts_MVP.Presenters
         {
             if (_view.ShowFileSelector() == System.Windows.Forms.DialogResult.OK)
             {
-                _view.ShowRenderMessageBox();
+                ShowRenderMessageBox();
             }
         }
 
         public void ShowRenderMessageBox()
         {
-            _view.ShowRenderMessageBox();
+            if (_view.ShowRenderMessageBox() == System.Windows.Forms.DialogResult.Yes)
+            {
+                RenderAllCharts();
+            }
         }
 
         public void OpenFileViaNotePad()
@@ -78,7 +82,7 @@ namespace MathVectorCharts_MVP.Presenters
             try
             {
                 _service.ReLoad();
-                _view.ShowRenderMessageBox();
+                ShowRenderMessageBox();
             }
             catch (Exception ex)
             {
@@ -89,6 +93,16 @@ namespace MathVectorCharts_MVP.Presenters
         public void ClearAllCharts()
         {
             _view.ClearAllCharts();
+        }
+
+        public void Show()
+        {
+            _view.Show();
+        }
+
+        public void Close()
+        {
+            _view.Close();
         }
     }
 }

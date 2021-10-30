@@ -8,6 +8,7 @@ namespace MathVectorCharts_MVP.Presenters
 {
     public interface IPresenter
     {
-
+        void Show();
+        void Close();
     }
 }

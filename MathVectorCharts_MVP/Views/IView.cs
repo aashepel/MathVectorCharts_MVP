@@ -9,7 +9,6 @@ namespace MathVectorCharts_MVP.Views
     public interface IView
     {
         void ShowErrorMessage(string message);
-        void InitializePresenter();
         void Show();
         void Close();
     }

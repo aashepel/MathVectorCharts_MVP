@@ -67,11 +67,11 @@
     <Compile Include="Services\IChartsService.cs" />
     <Compile Include="Views\IIrisesAnalysisView.cs" />
     <Compile Include="Views\IView.cs" />
-    <Compile Include="Views\View.cs">
+    <Compile Include="Views\IrisesAnalysisView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\View.Designer.cs">
-      <DependentUpon>View.cs</DependentUpon>
+    <Compile Include="Views\IrisesAnalysisView.Designer.cs">
+      <DependentUpon>IrisesAnalysisView.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ConcreteTypeIrisDataSet.cs" />
     <Compile Include="Models\Iris.cs" />
@@ -90,8 +90,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Views\View.resx">
-      <DependentUpon>View.cs</DependentUpon>
+    <EmbeddedResource Include="Views\IrisesAnalysisView.resx">
+      <DependentUpon>IrisesAnalysisView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

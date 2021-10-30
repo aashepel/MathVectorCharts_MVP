@@ -11,7 +11,6 @@ namespace MathVectorCharts_MVP.Views
 {
     public partial class IrisesAnalysisView : Form, IIrisesAnalysisView
     {
-        private IrisesAnalysisPresenter _presenter;
         List<Chart> _barCharts = new List<Chart>();
 
         public event Action OpenFile;
@@ -19,18 +18,17 @@ namespace MathVectorCharts_MVP.Views
         public event Action OpenNotePad;
         public event Action ReOpenFile;
         public event Action ClearCharts;
+        public event Action<string> ChangeFilePath;
 
         public IrisesAnalysisView()
         {
             InitializeComponent();
-            InitializePresenter();
 
-            btnOpenFile.Click += (sender, args) => Invoke(OpenFile);
-            btnRenderCharts.Click += (sender, args) => Invoke(RenderCharts);
-            btnOpenNotePad.Click += (sender, args) => Invoke(OpenNotePad);
-            btnReOpenFile.Click += (sender, args) => Invoke(ReOpenFile);
-            btnClearCharts.Click += (sender, args) => Invoke(ClearCharts);
-            _presenter.ChangeFilePath += (text) => lblFilePath.Text = text;
+            btnOpenFile.Click += (sender, args) => OpenFile?.Invoke();
+            btnRenderCharts.Click += (sender, args) => RenderCharts?.Invoke();
+            btnOpenNotePad.Click += (sender, args) => OpenNotePad?.Invoke();
+            btnReOpenFile.Click += (sender, args) => ReOpenFile?.Invoke();
+            btnClearCharts.Click += (sender, args) => ClearCharts?.Invoke();
 
             _barCharts.Add(chartBar_1);
             _barCharts.Add(chartBar_2);
@@ -38,14 +36,8 @@ namespace MathVectorCharts_MVP.Views
             _barCharts.Add(chartBar_4);
         }
 
-        private void Invoke(Action action)
-        {
-            if (action != null) action();
-        }
-
         void IIrisesAnalysisView.RenderBarCharts(List<BarChartInfo> chartsInfo)
         {
-            _presenter.ClearAllCharts();
             for (int i = 0; i < _barCharts.Count; i++)
             {
                 _barCharts[i].Titles.Add(chartsInfo[i].Title);
@@ -90,7 +82,7 @@ namespace MathVectorCharts_MVP.Views
             DialogResult dialogResult = openFileDialog.ShowDialog();
             if (dialogResult == DialogResult.OK)
             {
-                _presenter.FilePath = openFileDialog.FileName;
+                ChangeFilePath?.Invoke(openFileDialog.FileName);
                 btnRenderCharts.Enabled = true;
             }
             return dialogResult;
@@ -121,18 +113,24 @@ namespace MathVectorCharts_MVP.Views
             Process.Start("C:\\Windows\\System32\\notepad.exe", filePath);
         }
 
-        void IIrisesAnalysisView.ShowRenderMessageBox()
+        DialogResult IIrisesAnalysisView.ShowRenderMessageBox()
         {
             var resultDialog = MessageBox.Show("Построить графики?", "Диалог", MessageBoxButtons.YesNo);
-            if (resultDialog == DialogResult.Yes)
-            {
-                _presenter.RenderAllCharts();
-            }
+            return resultDialog;
+        }
+        void IIrisesAnalysisView.SetLabelFilePath(string filePath)
+        {
+            lblFilePath.Text = filePath;
         }
 
-        public void InitializePresenter()
+        void IView.Show()
         {
-            _presenter = new IrisesAnalysisPresenter(this, new ChartsService());
+            this.Show();
+        }
+
+        void IView.Close()
+        {
+            this.Close();
         }
     }
 }

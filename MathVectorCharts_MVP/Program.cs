@@ -1,4 +1,6 @@
-﻿using MathVectorCharts_MVP.Views;
+﻿using MathVectorCharts_MVP.Presenters;
+using MathVectorCharts_MVP.Services;
+using MathVectorCharts_MVP.Views;
 using System;
 using System.Windows.Forms;
 
@@ -14,7 +16,14 @@ namespace MathVectorCharts_MVP
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new IrisesAnalysisView());
+
+            /// MVP BINDING ///
+            IrisesAnalysisView view = new IrisesAnalysisView();
+            ChartsService service = new ChartsService();
+            var presenter = new IrisesAnalysisPresenter(view, service);
+            /// MVP BINDING ///
+            
+            Application.Run(view);
         }
     }
 }
