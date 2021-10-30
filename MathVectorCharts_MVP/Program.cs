@@ -1,9 +1,5 @@
-﻿using MathVectorCharts_MVP.UI;
-using MathVectorCharts_MVP.UI.ChartsUI;
+﻿using MathVectorCharts_MVP.Views;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MathVectorCharts_MVP
@@ -18,7 +14,7 @@ namespace MathVectorCharts_MVP
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new View());
+            Application.Run(new IrisesAnalysisView());
         }
     }
 }

@@ -22,6 +22,7 @@ namespace MathVectorCharts_MVP.Tools.Parsers
         public char Separator { get; set; }
         public override void Parse()
         {
+            ValidateParamsFile();
             throw new NotImplementedException();
         }
     }
@@ -32,10 +33,7 @@ namespace MathVectorCharts_MVP.Tools.Parsers
         }
         public override void Parse()
         {
-            if (!File.Exists(FilePath))
-            {
-                throw new NotExsistFileException();
-            }
+            ValidateParamsFile();
             try
             {
                 var lines = File.ReadAllLines(FilePath, Encoding.UTF8).ToList();

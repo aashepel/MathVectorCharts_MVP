@@ -1,6 +1,8 @@
-﻿using MathVectorCharts_MVP.Tools.Parsers.Interfaces;
+﻿using MathVectorCharts_MVP.Exceptions;
+using MathVectorCharts_MVP.Tools.Parsers.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,9 +15,15 @@ namespace MathVectorCharts_MVP.Tools.Parsers
         protected bool _successfullyParsed = false;
         protected List<string> _headers;
         protected string _filePath;
-        public AbstractParser(string filePath)
+        protected int _maxFileSize;
+        public AbstractParser(string filePath, int maxFileSize = 1024 * 1024)
         {
-            FilePath = filePath;
+            _filePath = filePath;
+            _maxFileSize = maxFileSize;
+            if (filePath != null)
+            {
+                ValidateParamsFile();
+            }
         }
         public bool SuccessfullyParsed
         {
@@ -27,7 +35,7 @@ namespace MathVectorCharts_MVP.Tools.Parsers
             set
             {
                 _successfullyParsed = false;
-                _filePath = value;
+                _filePath = value;                
             }
         }
         public List<string> Headers
@@ -56,7 +64,30 @@ namespace MathVectorCharts_MVP.Tools.Parsers
         public virtual void Parse(string filePath)
         {
             _filePath = filePath;
+            ValidateParamsFile();
             Parse();
+        }
+        protected virtual void ValidateSizeFile()
+        {
+            var fileInfo = new FileInfo(_filePath);
+            if (!fileInfo.Exists)
+            {
+                throw new ExceededAllowedFileLengthException();
+            }
+        }
+        protected virtual void ValidateExistsFile()
+        {
+            var fileInfo = new FileInfo(_filePath);
+            if (fileInfo.Length > _maxFileSize)
+            {
+                throw new ExceededAllowedFileLengthException();
+            }
+
+        }
+        protected virtual void ValidateParamsFile()
+        {
+            ValidateSizeFile();
+            ValidateExistsFile();
         }
     }
 }

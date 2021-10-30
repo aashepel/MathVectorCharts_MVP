@@ -1,29 +1,49 @@
-﻿using MathVectorCharts_MVP.Models;
-using MathVectorCharts_MVP.UI;
-using MathVectorCharts_MVP.UI.ChartsUI;
+﻿using MathVectorCharts_MVP.Presenters;
+using MathVectorCharts_MVP.Services;
 using MathVectorCharts_MVP.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 
-namespace MathVectorCharts_MVP
+namespace MathVectorCharts_MVP.Views
 {
-    public partial class View : Form, IChartsView
+    public partial class IrisesAnalysisView : Form, IIrisesAnalysisView
     {
-        private ChartsPresenter _presenter;
+        private IrisesAnalysisPresenter _presenter;
         List<Chart> _barCharts = new List<Chart>();
-        public View()
+
+        public event Action OpenFile;
+        public event Action RenderCharts;
+        public event Action OpenNotePad;
+        public event Action ReOpenFile;
+        public event Action ClearCharts;
+
+        public IrisesAnalysisView()
         {
             InitializeComponent();
-            _presenter = new ChartsPresenter(this, new ChartsService());
+            InitializePresenter();
+
+            btnOpenFile.Click += (sender, args) => Invoke(OpenFile);
+            btnRenderCharts.Click += (sender, args) => Invoke(RenderCharts);
+            btnOpenNotePad.Click += (sender, args) => Invoke(OpenNotePad);
+            btnReOpenFile.Click += (sender, args) => Invoke(ReOpenFile);
+            btnClearCharts.Click += (sender, args) => Invoke(ClearCharts);
+            _presenter.ChangeFilePath += (text) => lblFilePath.Text = text;
+
             _barCharts.Add(chartBar_1);
             _barCharts.Add(chartBar_2);
             _barCharts.Add(chartBar_3);
             _barCharts.Add(chartBar_4);
         }
 
-        void IChartsView.RenderBarCharts(List<BarChartInfo> chartsInfo)
+        private void Invoke(Action action)
+        {
+            if (action != null) action();
+        }
+
+        void IIrisesAnalysisView.RenderBarCharts(List<BarChartInfo> chartsInfo)
         {
             _presenter.ClearAllCharts();
             for (int i = 0; i < _barCharts.Count; i++)
@@ -36,17 +56,17 @@ namespace MathVectorCharts_MVP
                 _barCharts[i].ChartAreas[0].Area3DStyle.Rotation = 50;
                 for (int j = 0; j < chartsInfo[i].Values.Count; j++)
                 {
-                    var addedSeries = _barCharts[i].Series.Add(chartsInfo[i].Values[j].Key);
+                    var addedSeries = _barCharts[i].Series.Add(chartsInfo[i].Values[j].TitleBar);
                     addedSeries.Points.Add(chartsInfo[i].Values[j].Value);
                     addedSeries.IsValueShownAsLabel = true;
                     addedSeries.Label = chartsInfo[i].Values[j].Value.ToString();
                     addedSeries["DrawingStyle"] = "Cylinder";
-                    _barCharts[i].Legends.Add(chartsInfo[i].Values[j].Key);
+                    _barCharts[i].Legends.Add(chartsInfo[i].Values[j].TitleBar);
                 }
             }
         }
 
-        void IChartsView.RenderPieChart(PieChartInfo pieChartInfo)
+        void IIrisesAnalysisView.RenderPieChart(PieChartInfo pieChartInfo)
         {
             chartPie_1.ChartAreas.Clear();
             chartPie_1.ChartAreas.Add("ChartArea");
@@ -56,36 +76,24 @@ namespace MathVectorCharts_MVP
             foreach(var value in pieChartInfo.Values)
             {
                 int indexAddedPoints = addedSeries.Points.AddY(value.Value);
-                chartPie_1.Legends.Add(value.Key);
+                chartPie_1.Legends.Add(value.TitlePie);
                 addedSeries.Points[indexAddedPoints].Label = "#VALY (#PERCENT)";
-                addedSeries.Points[indexAddedPoints].LegendText = value.Key;
+                addedSeries.Points[indexAddedPoints].LegendText = value.TitlePie;
             }
         }
-
-        private void btnOpenFile_Click(object sender, System.EventArgs e)
+        DialogResult IIrisesAnalysisView.ShowFileSelector()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Multiselect = false;
             openFileDialog.Filter = "Файлы csv|*.csv";
             openFileDialog.InitialDirectory = Application.StartupPath;
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            DialogResult dialogResult = openFileDialog.ShowDialog();
+            if (dialogResult == DialogResult.OK)
             {
-                try
-                {
-                    _presenter.LoadIrises(openFileDialog.FileName);
-                    btnRenderCharts.Enabled = true;
-                    var resultDialog = MessageBox.Show("Построить графики?", "Диалог", MessageBoxButtons.YesNo);
-                    if (resultDialog == DialogResult.Yes)
-                    {
-                        _presenter.LoadCharts();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    btnRenderCharts.Enabled = false;
-                    ShowErrorMessage(ex.Message);
-                }
+                _presenter.FilePath = openFileDialog.FileName;
+                btnRenderCharts.Enabled = true;
             }
+            return dialogResult;
         }
 
         public void ShowErrorMessage(string message)
@@ -93,12 +101,7 @@ namespace MathVectorCharts_MVP
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void btnRenderCharts_Click(object sender, EventArgs e)
-        {
-            _presenter.LoadCharts();
-        }
-
-        void IChartsView.ClearAllCharts()
+        void IIrisesAnalysisView.ClearAllCharts()
         {
             chartPie_1.Series.Clear();
             chartPie_1.Legends.Clear();
@@ -113,9 +116,23 @@ namespace MathVectorCharts_MVP
             }
         }
 
-        private void btnClearCharts_Click(object sender, EventArgs e)
+        void IIrisesAnalysisView.OpenFileViaNotePad(string filePath)
         {
-            _presenter.ClearAllCharts();
+            Process.Start("C:\\Windows\\System32\\notepad.exe", filePath);
+        }
+
+        void IIrisesAnalysisView.ShowRenderMessageBox()
+        {
+            var resultDialog = MessageBox.Show("Построить графики?", "Диалог", MessageBoxButtons.YesNo);
+            if (resultDialog == DialogResult.Yes)
+            {
+                _presenter.RenderAllCharts();
+            }
+        }
+
+        public void InitializePresenter()
+        {
+            _presenter = new IrisesAnalysisPresenter(this, new ChartsService());
         }
     }
 }

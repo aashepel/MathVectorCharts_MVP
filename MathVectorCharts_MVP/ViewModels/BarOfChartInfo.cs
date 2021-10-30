@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace MathVectorCharts_MVP.ViewModels
 {
-    public class PieChartInfo
+    public class BarOfChartInfo
     {
-        public List<PieOfChartInfo> Values { get; set; } = new List<PieOfChartInfo>();
+        public string TitleBar { get; set; }
+        public double Value { get; set; }
     }
 }

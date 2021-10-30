@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathVectorCharts_MVP.UI.ChartsUI
+namespace MathVectorCharts_MVP.Services
 {
     public interface IChartsService
     {
         List<BarChartInfo> LoadBarChartsInfo();
         PieChartInfo LoadPieChartInfo();
         void LoadIrises(string filePath);
+        void ReLoad();
+        string FilePath { get; set; }
     }
 }

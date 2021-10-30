@@ -8,22 +8,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathVectorCharts_MVP.UI.ChartsUI
+namespace MathVectorCharts_MVP.Services
 {
     public class ChartsService : IChartsService
     {
-        IrisesDataSet _dataSet;
-        IParser<Iris> _parser;
+        private IrisesDataSet _dataSet;
+        private IParser<Iris> _parser;
+
         public ChartsService()
         {
             _dataSet = new IrisesDataSet();
             _parser = new CsvIrisParser(null, ',');
         }
-        List<BarChartInfo> IChartsService.LoadBarChartsInfo()
+
+
+        string IChartsService.FilePath
+        {
+            get
+            {
+                return _parser.FilePath;
+            }
+            set
+            {
+                _parser.FilePath = value;
+            }
+        }
+
+        public List<BarChartInfo> LoadBarChartsInfo()
         {
             if (!_parser.SuccessfullyParsed)
             {
-                _parser.Parse();
+                ReLoad();
             }
 
             List<BarChartInfo> barChartsInfo = new List<BarChartInfo>();
@@ -33,18 +48,20 @@ namespace MathVectorCharts_MVP.UI.ChartsUI
                 chartInfo.Title = _parser.Headers[i];
                 for (int j = 0; j < _dataSet.CountTypes; j++)
                 {
-                    chartInfo.Values.Add(new KeyValuePair<string, double>(_dataSet[j].Type, Math.Round(_dataSet[j].ArithmeticMeanOfColumn(i), 2)));
+                    string title = _dataSet[j].Type;
+                    double value = Math.Round(_dataSet[j].ArithmeticMeanOfColumn(i), 2);
+                    chartInfo.Values.Add(new BarOfChartInfo { TitleBar = title, Value = value });
                 }
                 barChartsInfo.Add(chartInfo);
             }
             return barChartsInfo;
         }
 
-        PieChartInfo IChartsService.LoadPieChartInfo()
+        public PieChartInfo LoadPieChartInfo()
         {
             if (!_parser.SuccessfullyParsed)
             {
-                _parser.Parse();
+                ReLoad();
             }
 
             PieChartInfo pieChartInfo = new PieChartInfo();
@@ -54,16 +71,21 @@ namespace MathVectorCharts_MVP.UI.ChartsUI
                 {
                     string title = $"{_dataSet[i].Type} & {_dataSet[j].Type}";
                     double value = Math.Round(_dataSet[i].ArithmeticMeanVector().CalcDistance(_dataSet[j].ArithmeticMeanVector()), 2);
-                    KeyValuePair<string, double> dataPoint = new KeyValuePair<string, double>(title, value);
-                    pieChartInfo.Values.Add(dataPoint);
+                    pieChartInfo.Values.Add(new PieOfChartInfo { TitlePie = title, Value = value });
                 }
             }
             return pieChartInfo;
         }
 
-        void IChartsService.LoadIrises(string filePath)
+        public void LoadIrises(string filePath)
         {
             _parser.Parse(filePath);
+            _dataSet.Irises = new List<Iris>(_parser.Records);
+        }
+
+        public void ReLoad()
+        {
+            _parser.Parse();
             _dataSet.Irises = new List<Iris>(_parser.Records);
         }
     }
