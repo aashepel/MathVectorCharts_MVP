@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea10 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.btnOpenFile = new System.Windows.Forms.Button();
             this.btnRenderCharts = new System.Windows.Forms.Button();
             this.chartBar_1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -44,6 +44,7 @@
             this.lblFilePath = new System.Windows.Forms.Label();
             this.btnReOpenFile = new System.Windows.Forms.Button();
             this.btnOpenNotePad = new System.Windows.Forms.Button();
+            this.btnOpenClusterView = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartBar_1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartBar_2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartBar_3)).BeginInit();
@@ -72,8 +73,8 @@
             // 
             // chartBar_1
             // 
-            chartArea6.Name = "ChartArea1";
-            this.chartBar_1.ChartAreas.Add(chartArea6);
+            chartArea1.Name = "ChartArea1";
+            this.chartBar_1.ChartAreas.Add(chartArea1);
             this.chartBar_1.Location = new System.Drawing.Point(12, 41);
             this.chartBar_1.Name = "chartBar_1";
             this.chartBar_1.Size = new System.Drawing.Size(300, 300);
@@ -82,8 +83,8 @@
             // 
             // chartBar_2
             // 
-            chartArea7.Name = "ChartArea1";
-            this.chartBar_2.ChartAreas.Add(chartArea7);
+            chartArea2.Name = "ChartArea1";
+            this.chartBar_2.ChartAreas.Add(chartArea2);
             this.chartBar_2.Location = new System.Drawing.Point(318, 41);
             this.chartBar_2.Name = "chartBar_2";
             this.chartBar_2.Size = new System.Drawing.Size(300, 300);
@@ -92,8 +93,8 @@
             // 
             // chartBar_3
             // 
-            chartArea8.Name = "ChartArea1";
-            this.chartBar_3.ChartAreas.Add(chartArea8);
+            chartArea3.Name = "ChartArea1";
+            this.chartBar_3.ChartAreas.Add(chartArea3);
             this.chartBar_3.Location = new System.Drawing.Point(624, 41);
             this.chartBar_3.Name = "chartBar_3";
             this.chartBar_3.Size = new System.Drawing.Size(300, 300);
@@ -102,8 +103,8 @@
             // 
             // chartBar_4
             // 
-            chartArea9.Name = "ChartArea1";
-            this.chartBar_4.ChartAreas.Add(chartArea9);
+            chartArea4.Name = "ChartArea1";
+            this.chartBar_4.ChartAreas.Add(chartArea4);
             this.chartBar_4.Location = new System.Drawing.Point(930, 41);
             this.chartBar_4.Name = "chartBar_4";
             this.chartBar_4.Size = new System.Drawing.Size(300, 300);
@@ -121,8 +122,8 @@
             // 
             // chartPie_1
             // 
-            chartArea10.Name = "ChartArea1";
-            this.chartPie_1.ChartAreas.Add(chartArea10);
+            chartArea5.Name = "ChartArea1";
+            this.chartPie_1.ChartAreas.Add(chartArea5);
             this.chartPie_1.Location = new System.Drawing.Point(12, 347);
             this.chartPie_1.Name = "chartPie_1";
             this.chartPie_1.Size = new System.Drawing.Size(606, 300);
@@ -156,12 +157,22 @@
             this.btnOpenNotePad.Text = "Open File via NotePad";
             this.btnOpenNotePad.UseVisualStyleBackColor = true;
             // 
-            // View
+            // btnOpenClusterView
+            // 
+            this.btnOpenClusterView.Location = new System.Drawing.Point(253, 12);
+            this.btnOpenClusterView.Name = "btnOpenClusterView";
+            this.btnOpenClusterView.Size = new System.Drawing.Size(127, 23);
+            this.btnOpenClusterView.TabIndex = 11;
+            this.btnOpenClusterView.Text = "Кластерный анализ";
+            this.btnOpenClusterView.UseVisualStyleBackColor = true;
+            // 
+            // IrisesAnalysisView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1240, 663);
+            this.Controls.Add(this.btnOpenClusterView);
             this.Controls.Add(this.btnOpenNotePad);
             this.Controls.Add(this.btnReOpenFile);
             this.Controls.Add(this.lblFilePath);
@@ -173,7 +184,7 @@
             this.Controls.Add(this.chartBar_1);
             this.Controls.Add(this.btnRenderCharts);
             this.Controls.Add(this.btnOpenFile);
-            this.Name = "View";
+            this.Name = "IrisesAnalysisView";
             this.Text = "IrisesAnalysis";
             ((System.ComponentModel.ISupportInitialize)(this.chartBar_1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.chartBar_2)).EndInit();
@@ -198,6 +209,7 @@
         private System.Windows.Forms.Label lblFilePath;
         private System.Windows.Forms.Button btnReOpenFile;
         private System.Windows.Forms.Button btnOpenNotePad;
+        private System.Windows.Forms.Button btnOpenClusterView;
     }
 }
 

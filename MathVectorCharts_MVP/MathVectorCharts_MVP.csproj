@@ -65,6 +65,12 @@
     <Compile Include="Services\ChartsService.cs" />
     <Compile Include="Presenters\IrisesAnalysisPresenter.cs" />
     <Compile Include="Services\IChartsService.cs" />
+    <Compile Include="Views\ClusterAnalysisView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ClusterAnalysisView.Designer.cs">
+      <DependentUpon>ClusterAnalysisView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\IIrisesAnalysisView.cs" />
     <Compile Include="Views\IView.cs" />
     <Compile Include="Views\IrisesAnalysisView.cs">
@@ -90,6 +96,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\ClusterAnalysisView.resx">
+      <DependentUpon>ClusterAnalysisView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\IrisesAnalysisView.resx">
       <DependentUpon>IrisesAnalysisView.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +115,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Clustering\Clustering.csproj">
+      <Project>{E9C58824-210F-44B5-BC9E-7144F0FE70F5}</Project>
+      <Name>Clustering</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

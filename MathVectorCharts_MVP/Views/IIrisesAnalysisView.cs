@@ -20,5 +20,6 @@ namespace MathVectorCharts_MVP.Views
         event Action ReOpenFile;
         event Action ClearCharts;
         event Action<string> ChangeFilePath;
+        event Action OpenClusterView;
     }
 }

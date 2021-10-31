@@ -19,6 +19,7 @@ namespace MathVectorCharts_MVP.Views
         public event Action ReOpenFile;
         public event Action ClearCharts;
         public event Action<string> ChangeFilePath;
+        public event Action OpenClusterView;
 
         public IrisesAnalysisView()
         {
@@ -29,6 +30,7 @@ namespace MathVectorCharts_MVP.Views
             btnOpenNotePad.Click += (sender, args) => OpenNotePad?.Invoke();
             btnReOpenFile.Click += (sender, args) => ReOpenFile?.Invoke();
             btnClearCharts.Click += (sender, args) => ClearCharts?.Invoke();
+            btnOpenClusterView.Click += (sender, args) => OpenClusterView?.Invoke();
 
             _barCharts.Add(chartBar_1);
             _barCharts.Add(chartBar_2);

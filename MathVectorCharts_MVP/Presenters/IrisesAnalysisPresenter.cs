@@ -8,6 +8,7 @@ namespace MathVectorCharts_MVP.Presenters
     {
         private readonly IIrisesAnalysisView _view;
         private readonly IChartsService _service;
+        private ClusterAnalysisView _clusterAnalysisView;
 
         public IrisesAnalysisPresenter(IIrisesAnalysisView view, IChartsService service)
         {
@@ -19,6 +20,7 @@ namespace MathVectorCharts_MVP.Presenters
             _view.OpenNotePad += () => OpenFileViaNotePad();
             _view.ReOpenFile += () => ReLoadCharts();
             _view.ClearCharts += () => ClearAllCharts();
+            _view.OpenClusterView += () => OpenClusterView();
             _view.ChangeFilePath += filePath => FilePath = filePath;
         }
 
@@ -33,6 +35,12 @@ namespace MathVectorCharts_MVP.Presenters
                 _service.FilePath = value;
                 _view.SetLabelFilePath(value);
             }
+        }
+
+        public void OpenClusterView()
+        {
+            _clusterAnalysisView = new ClusterAnalysisView();
+            _clusterAnalysisView.Show();
         }
         
         public void RenderAllCharts()
