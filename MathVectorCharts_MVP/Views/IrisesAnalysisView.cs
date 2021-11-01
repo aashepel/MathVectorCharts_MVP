@@ -13,24 +13,24 @@ namespace MathVectorCharts_MVP.Views
     {
         List<Chart> _barCharts = new List<Chart>();
 
-        public event Action OpenFile;
-        public event Action RenderCharts;
-        public event Action OpenNotePad;
-        public event Action ReOpenFile;
-        public event Action ClearCharts;
+        public event Action OpenFileClick;
+        public event Action RenderChartsClick;
+        public event Action OpenNotePadClick;
+        public event Action ReOpenFileClick;
+        public event Action ClearChartsClick;
         public event Action<string> ChangeFilePath;
-        public event Action OpenClusterView;
+        public event Action OpenClusterViewClick;
 
         public IrisesAnalysisView()
         {
             InitializeComponent();
 
-            btnOpenFile.Click += (sender, args) => OpenFile?.Invoke();
-            btnRenderCharts.Click += (sender, args) => RenderCharts?.Invoke();
-            btnOpenNotePad.Click += (sender, args) => OpenNotePad?.Invoke();
-            btnReOpenFile.Click += (sender, args) => ReOpenFile?.Invoke();
-            btnClearCharts.Click += (sender, args) => ClearCharts?.Invoke();
-            btnOpenClusterView.Click += (sender, args) => OpenClusterView?.Invoke();
+            btnOpenFile.Click += (sender, args) => OpenFileClick?.Invoke();
+            btnRenderCharts.Click += (sender, args) => RenderChartsClick?.Invoke();
+            btnOpenNotePad.Click += (sender, args) => OpenNotePadClick?.Invoke();
+            btnReOpenFile.Click += (sender, args) => ReOpenFileClick?.Invoke();
+            btnClearCharts.Click += (sender, args) => ClearChartsClick?.Invoke();
+            btnOpenClusterView.Click += (sender, args) => OpenClusterViewClick?.Invoke();
 
             _barCharts.Add(chartBar_1);
             _barCharts.Add(chartBar_2);

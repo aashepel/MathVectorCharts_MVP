@@ -38,22 +38,10 @@ namespace Clustering
                 return CalculateKMeans();
             }
         }
-
-        private bool Assign()
+        public PointClusters Calculate()
         {
-            bool changed = false;
-            foreach (var pointInfo in _points)
-            {
-                Cluster newCluster = DetermineClusterMembership(pointInfo.Point);
-                if (newCluster.Id != pointInfo.Id)
-                {
-                    changed = true;
-                    pointInfo.Id = newCluster.Id;
-                }
-            }
-            return changed;
+            return CalculateKMeans();
         }
-
         private PointClusters CalculateKMeans()
         {
             InitClusters();
@@ -78,6 +66,20 @@ namespace Clustering
             return pointClusters;
         }
 
+        private bool Assign()
+        {
+            bool changed = false;
+            foreach (var pointInfo in _points)
+            {
+                Cluster newCluster = DetermineClusterMembership(pointInfo.Point);
+                if (newCluster.Id != pointInfo.Id)
+                {
+                    changed = true;
+                    pointInfo.Id = newCluster.Id;
+                }
+            }
+            return changed;
+        }
         private void UpdateMeans()
         {
             foreach (var cluster in _clusters)
@@ -157,37 +159,33 @@ namespace Clustering
         {
             Random random = new Random(0);
             List<int> clustersCentersIndexes = new List<int>();
-            //MathVector firstCentroid = FirstCentroid();
-            //int index = random.Next(0, _data.Count);
             int index = _points.IndexOf(_points.OrderBy(p => p.Point[0]).ThenBy(p => p.Point[1]).ElementAt(_points.Count / 2));
             MathVector firstCentroid = _points[index].Point;
-            //int indexFirstCentroid = _data.Select(p => p.Object).ToList().IndexOf(firstCentroid);
             _clusters.Add(new Cluster(firstCentroid, 0));
-            //clustersCentersIndexes.Add(indexFirstCentroid);
             clustersCentersIndexes.Add(index);
 
 
 
             while (clustersCentersIndexes.Count != _countClusters)
             {
-                double minDistance = double.MinValue;
+                double maxDistance = double.MinValue;
                 MathVector maxDistanceVector = null;
                 int maxIndexVector = -1;
                 for (int i = 0; i < _points.Select(p => p.Point).Count(); i++)
                 {
                     if (!clustersCentersIndexes.Contains(i))
                     {
-                        double minCurrentDistance = 0;
+                        double maxCurrentDistance = 0;
                         List<double> distances = new List<double>();
                         foreach (var cluster in _clusters)
                         {
                             double currentDistances = _points[i].Point.CalcDistance(cluster.ClusterCenter);
                             distances.Add(currentDistances);
                         }
-                        minCurrentDistance = distances.Min();
-                        if (minCurrentDistance > minDistance)
+                        maxCurrentDistance = distances.Min();
+                        if (maxCurrentDistance > maxDistance)
                         {
-                            minDistance = minCurrentDistance;
+                            maxDistance = maxCurrentDistance;
                             maxDistanceVector = _points[i].Point;
                             maxIndexVector = i;
                         }

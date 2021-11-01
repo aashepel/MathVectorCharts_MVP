@@ -14,12 +14,12 @@ namespace MathVectorCharts_MVP.Views
         DialogResult ShowFileSelector();
         DialogResult ShowRenderMessageBox();
         void ClearAllCharts();
-        event Action OpenFile;
-        event Action RenderCharts;
-        event Action OpenNotePad;
-        event Action ReOpenFile;
-        event Action ClearCharts;
+        event Action OpenFileClick;
+        event Action RenderChartsClick;
+        event Action OpenNotePadClick;
+        event Action ReOpenFileClick;
+        event Action ClearChartsClick;
         event Action<string> ChangeFilePath;
-        event Action OpenClusterView;
+        event Action OpenClusterViewClick;
     }
 }

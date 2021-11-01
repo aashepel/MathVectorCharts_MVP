@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MathVectorCharts_MVP.Tools.Parsers
 {
-    public abstract class AbstractParser<T> : IParser<T> where T : class, new()
+    public abstract class AbstractParser<T> : IParser<T>
     {
         protected List<T> _records;
         protected bool _successfullyParsed = false;
@@ -67,7 +67,7 @@ namespace MathVectorCharts_MVP.Tools.Parsers
             ValidateParamsFile();
             Parse();
         }
-        protected virtual void ValidateSizeFile()
+        private void ValidateSizeFile()
         {
             var fileInfo = new FileInfo(_filePath);
             if (!fileInfo.Exists)
@@ -75,7 +75,7 @@ namespace MathVectorCharts_MVP.Tools.Parsers
                 throw new ExceededAllowedFileLengthException();
             }
         }
-        protected virtual void ValidateExistsFile()
+        private void ValidateExistsFile()
         {
             var fileInfo = new FileInfo(_filePath);
             if (fileInfo.Length > _maxFileSize)

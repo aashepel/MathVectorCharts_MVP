@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace Clustering
 {
-    interface IClusterer
+    public interface IClusterer
     {
         void InitClusters();
         IEnumerable<Cluster> Clusters { get; }
         Cluster DetermineClusterMembership(IMathVector vector);
+        PointClusters Calculate();
     }
 }

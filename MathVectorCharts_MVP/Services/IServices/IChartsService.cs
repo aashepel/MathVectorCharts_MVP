@@ -13,7 +13,5 @@ namespace MathVectorCharts_MVP.Services
         List<BarChartInfo> LoadBarChartsInfo();
         PieChartInfo LoadPieChartInfo();
         void LoadIrises(string filePath);
-        void ReLoad();
-        string FilePath { get; set; }
     }
 }

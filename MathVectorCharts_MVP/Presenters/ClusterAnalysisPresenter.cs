@@ -2,31 +2,33 @@
 using MathVectorCharts_MVP.Views;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace MathVectorCharts_MVP.Presenters
 {
-    public class IrisesAnalysisPresenter : IPresenter
+    public class ClusterAnalysisPresenter : IPresenter
     {
-        private readonly IIrisesAnalysisView _view;
-        private readonly IChartsService _service;
+        private IClusterAnalysisView _view;
+        private IClusteringService _service;
         private string _filePath;
-
-        public IrisesAnalysisPresenter(IIrisesAnalysisView view, IChartsService service)
+        private int _countClusters = 1;
+        private ClusteringAlgorithmType _clusteringAlgorithmType = ClusteringAlgorithmType.Kmeans;
+        public ClusterAnalysisPresenter(IClusterAnalysisView view, IClusteringService service)
         {
             _view = view;
             _service = service;
 
             _view.OpenFileClick += () => ShowFileSelector();
-            _view.RenderChartsClick += () => RenderAllCharts();
+            _view.RenderChartClick += () => RenderChart();
             _view.OpenNotePadClick += () => OpenFileViaNotePad();
-            _view.ReOpenFileClick += () => ReLoadCharts();
-            _view.ClearChartsClick += () => _view.ClearAllCharts();
-            _view.OpenClusterViewClick += () => OpenClusterView();
-            _view.ChangeFilePath += filePath => FilePath = filePath;
+            _view.ClearChartsClick += () => ClearChart();
+            _view.ChangeFilePath += (filePath) => FilePath = filePath;
+            _view.ChangeCountClusters += (countClusters) => _countClusters = countClusters;
+            _view.ClusteringAlgorithmTypeChanged += (type) => _clusteringAlgorithmType = type;
         }
-
         public string FilePath
         {
             get
@@ -39,23 +41,13 @@ namespace MathVectorCharts_MVP.Presenters
                 _view.SetLabelFilePath(value);
             }
         }
-
-        public void OpenClusterView()
-        {
-            IClusterAnalysisView view = new ClusterAnalysisView();
-            IClusteringService service = new ClusteringService();
-            ClusterAnalysisPresenter _clusterAnalysisPresenter = new ClusterAnalysisPresenter(view, service);
-            view.Show();
-        }
-
-        public void RenderAllCharts()
+        public void RenderChart()
         {
             try
             {
-                _service.LoadIrises(_filePath);
-                _view.ClearAllCharts();
-                _view.RenderBarCharts(_service.LoadBarChartsInfo());
-                _view.RenderPieChart(_service.LoadPieChartInfo());
+                ClearChart();
+                var pointsClusters = _service.LoadPointClustering(_filePath, _clusteringAlgorithmType, _countClusters);
+                _view.RenderChart(pointsClusters);
             }
             catch (Exception ex)
             {
@@ -75,7 +67,7 @@ namespace MathVectorCharts_MVP.Presenters
         {
             if (_view.ShowRenderMessageBox() == System.Windows.Forms.DialogResult.Yes)
             {
-                RenderAllCharts();
+                RenderChart();
             }
         }
 
@@ -91,26 +83,18 @@ namespace MathVectorCharts_MVP.Presenters
             }
         }
 
-        public void ReLoadCharts()
+        public void ClearChart()
         {
-            try
-            {
-                RenderAllCharts();
-            }
-            catch (Exception ex)
-            {
-                _view.ShowErrorMessage(ex.Message);
-            }
+            _view.ClearChart();
+        }
+        public void Close()
+        {
+            throw new NotImplementedException();
         }
 
         public void Show()
         {
-            _view.Show();
-        }
-
-        public void Close()
-        {
-            _view.Close();
+            throw new NotImplementedException();
         }
     }
 }

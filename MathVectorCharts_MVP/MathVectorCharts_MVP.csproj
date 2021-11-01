@@ -56,7 +56,13 @@
     <Compile Include="Exceptions\ImpossibleCalculateMeanVectorException.cs" />
     <Compile Include="Exceptions\InvalidFileContentException.cs" />
     <Compile Include="Exceptions\NotExsistFileException.cs" />
-    <Compile Include="Presenters\IPresenter.cs" />
+    <Compile Include="Exceptions\UnknowClusteringAlgorithm.cs" />
+    <Compile Include="Presenters\ClusterAnalysisPresenter.cs" />
+    <Compile Include="Presenters\IPresenters\IPresenter.cs" />
+    <Compile Include="Services\ClusteringService.cs" />
+    <Compile Include="Services\IServices\IClusteringService.cs" />
+    <Compile Include="Tools\Parsers\Interfaces\ITxtParser.cs" />
+    <Compile Include="Tools\Parsers\TxtParser.cs" />
     <Compile Include="ViewModels\BarChartInfo.cs" />
     <Compile Include="Tools\Parsers\AbstractParser.cs" />
     <Compile Include="Tools\Parsers\CsvParser.cs" />
@@ -64,15 +70,16 @@
     <Compile Include="Tools\Parsers\Interfaces\IParser.cs" />
     <Compile Include="Services\ChartsService.cs" />
     <Compile Include="Presenters\IrisesAnalysisPresenter.cs" />
-    <Compile Include="Services\IChartsService.cs" />
+    <Compile Include="Services\IServices\IChartsService.cs" />
     <Compile Include="Views\ClusterAnalysisView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\ClusterAnalysisView.Designer.cs">
       <DependentUpon>ClusterAnalysisView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\IIrisesAnalysisView.cs" />
-    <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\IViews\IClusterAnalysisView.cs" />
+    <Compile Include="Views\IViews\IIrisesAnalysisView.cs" />
+    <Compile Include="Views\IViews\IView.cs" />
     <Compile Include="Views\IrisesAnalysisView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,5 +128,6 @@
       <Name>Clustering</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

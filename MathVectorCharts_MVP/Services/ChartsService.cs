@@ -21,26 +21,8 @@ namespace MathVectorCharts_MVP.Services
             _parser = new CsvIrisParser(null, ',');
         }
 
-
-        string IChartsService.FilePath
-        {
-            get
-            {
-                return _parser.FilePath;
-            }
-            set
-            {
-                _parser.FilePath = value;
-            }
-        }
-
         public List<BarChartInfo> LoadBarChartsInfo()
         {
-            if (!_parser.SuccessfullyParsed)
-            {
-                ReLoad();
-            }
-
             List<BarChartInfo> barChartsInfo = new List<BarChartInfo>();
             for (int i = 0; i < _parser.Headers.Count - 1; i++)
             {
@@ -59,11 +41,6 @@ namespace MathVectorCharts_MVP.Services
 
         public PieChartInfo LoadPieChartInfo()
         {
-            if (!_parser.SuccessfullyParsed)
-            {
-                ReLoad();
-            }
-
             PieChartInfo pieChartInfo = new PieChartInfo();
             for (int i = 0; i < _dataSet.CountTypes; i++)
             {
@@ -80,12 +57,6 @@ namespace MathVectorCharts_MVP.Services
         public void LoadIrises(string filePath)
         {
             _parser.Parse(filePath);
-            _dataSet.Irises = new List<Iris>(_parser.Records);
-        }
-
-        public void ReLoad()
-        {
-            _parser.Parse();
             _dataSet.Irises = new List<Iris>(_parser.Records);
         }
     }

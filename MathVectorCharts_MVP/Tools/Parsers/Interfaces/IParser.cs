@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MathVectorCharts_MVP.Tools.Parsers.Interfaces
 {
-    public interface IParser<T> where T : class, new()
+    public interface IParser<T>
     {
         bool SuccessfullyParsed { get; }
         string FilePath { get; set; }

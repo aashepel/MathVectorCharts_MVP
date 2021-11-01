@@ -318,5 +318,10 @@ namespace Clustering
         {
             throw new NotImplementedException();
         }
+
+        public PointClusters Calculate()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
