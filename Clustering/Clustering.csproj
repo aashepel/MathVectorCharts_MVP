@@ -47,8 +47,8 @@
     <Compile Include="Cluster.cs" />
     <Compile Include="IClusterer.cs" />
     <Compile Include="KmeansClusterer.cs" />
-    <Compile Include="KMeansResults.cs" />
-    <Compile Include="ObjectOfClustering.cs" />
+    <Compile Include="KmeansPlusPlusClusterer.cs" />
+    <Compile Include="PointClusters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

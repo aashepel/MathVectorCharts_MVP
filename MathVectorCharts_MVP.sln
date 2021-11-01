@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathVectorCharts_MVP", "Mat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clustering", "Clustering\Clustering.csproj", "{E9C58824-210F-44B5-BC9E-7144F0FE70F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClusteringConsoleApplication", "ClusteringConsoleApplication\ClusteringConsoleApplication.csproj", "{E14915C7-FF98-4904-96D8-5FF2BDEDFC9C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{E9C58824-210F-44B5-BC9E-7144F0FE70F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9C58824-210F-44B5-BC9E-7144F0FE70F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9C58824-210F-44B5-BC9E-7144F0FE70F5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E14915C7-FF98-4904-96D8-5FF2BDEDFC9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E14915C7-FF98-4904-96D8-5FF2BDEDFC9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E14915C7-FF98-4904-96D8-5FF2BDEDFC9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E14915C7-FF98-4904-96D8-5FF2BDEDFC9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
