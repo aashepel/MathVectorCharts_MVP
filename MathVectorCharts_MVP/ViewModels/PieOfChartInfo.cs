@@ -8,7 +8,14 @@ namespace MathVectorCharts_MVP.ViewModels
 {
     public class PieOfChartInfo
     {
+        /// <summary>
+        /// Заголовок кусочка для легенды
+        /// </summary>
         public string TitlePie { get; set; }
+
+        /// <summary>
+        /// Значение
+        /// </summary>
         public double Value { get; set; }
     }
 }

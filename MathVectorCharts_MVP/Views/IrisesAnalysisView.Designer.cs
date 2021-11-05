@@ -42,7 +42,6 @@
             this.btnClearCharts = new System.Windows.Forms.Button();
             this.chartPie_1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lblFilePath = new System.Windows.Forms.Label();
-            this.btnReOpenFile = new System.Windows.Forms.Button();
             this.btnOpenNotePad = new System.Windows.Forms.Button();
             this.btnOpenClusterView = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartBar_1)).BeginInit();
@@ -56,19 +55,19 @@
             // 
             this.btnOpenFile.Location = new System.Drawing.Point(12, 12);
             this.btnOpenFile.Name = "btnOpenFile";
-            this.btnOpenFile.Size = new System.Drawing.Size(75, 23);
+            this.btnOpenFile.Size = new System.Drawing.Size(117, 23);
             this.btnOpenFile.TabIndex = 0;
-            this.btnOpenFile.Text = "Open File";
+            this.btnOpenFile.Text = "Загрузить файл";
             this.btnOpenFile.UseVisualStyleBackColor = true;
             // 
             // btnRenderCharts
             // 
             this.btnRenderCharts.Enabled = false;
-            this.btnRenderCharts.Location = new System.Drawing.Point(501, 12);
+            this.btnRenderCharts.Location = new System.Drawing.Point(135, 12);
             this.btnRenderCharts.Name = "btnRenderCharts";
-            this.btnRenderCharts.Size = new System.Drawing.Size(117, 23);
+            this.btnRenderCharts.Size = new System.Drawing.Size(177, 23);
             this.btnRenderCharts.TabIndex = 1;
-            this.btnRenderCharts.Text = "Render Charts";
+            this.btnRenderCharts.Text = "Построить диаграммы";
             this.btnRenderCharts.UseVisualStyleBackColor = true;
             // 
             // chartBar_1
@@ -113,11 +112,11 @@
             // 
             // btnClearCharts
             // 
-            this.btnClearCharts.Location = new System.Drawing.Point(624, 12);
+            this.btnClearCharts.Location = new System.Drawing.Point(318, 12);
             this.btnClearCharts.Name = "btnClearCharts";
-            this.btnClearCharts.Size = new System.Drawing.Size(117, 23);
+            this.btnClearCharts.Size = new System.Drawing.Size(142, 23);
             this.btnClearCharts.TabIndex = 6;
-            this.btnClearCharts.Text = "Clear Charts";
+            this.btnClearCharts.Text = "Очистить диаграммы";
             this.btnClearCharts.UseVisualStyleBackColor = true;
             // 
             // chartPie_1
@@ -139,27 +138,18 @@
             this.lblFilePath.TabIndex = 8;
             this.lblFilePath.Text = "Путь не указан";
             // 
-            // btnReOpenFile
-            // 
-            this.btnReOpenFile.Location = new System.Drawing.Point(93, 12);
-            this.btnReOpenFile.Name = "btnReOpenFile";
-            this.btnReOpenFile.Size = new System.Drawing.Size(75, 23);
-            this.btnReOpenFile.TabIndex = 9;
-            this.btnReOpenFile.Text = "ReOpen File";
-            this.btnReOpenFile.UseVisualStyleBackColor = true;
-            // 
             // btnOpenNotePad
             // 
             this.btnOpenNotePad.Location = new System.Drawing.Point(1082, 12);
             this.btnOpenNotePad.Name = "btnOpenNotePad";
             this.btnOpenNotePad.Size = new System.Drawing.Size(148, 23);
             this.btnOpenNotePad.TabIndex = 10;
-            this.btnOpenNotePad.Text = "Open File via NotePad";
+            this.btnOpenNotePad.Text = "Открыть файл в блокноте";
             this.btnOpenNotePad.UseVisualStyleBackColor = true;
             // 
             // btnOpenClusterView
             // 
-            this.btnOpenClusterView.Location = new System.Drawing.Point(253, 12);
+            this.btnOpenClusterView.Location = new System.Drawing.Point(843, 12);
             this.btnOpenClusterView.Name = "btnOpenClusterView";
             this.btnOpenClusterView.Size = new System.Drawing.Size(127, 23);
             this.btnOpenClusterView.TabIndex = 11;
@@ -174,7 +164,6 @@
             this.ClientSize = new System.Drawing.Size(1240, 663);
             this.Controls.Add(this.btnOpenClusterView);
             this.Controls.Add(this.btnOpenNotePad);
-            this.Controls.Add(this.btnReOpenFile);
             this.Controls.Add(this.lblFilePath);
             this.Controls.Add(this.chartPie_1);
             this.Controls.Add(this.btnClearCharts);
@@ -207,7 +196,6 @@
         private System.Windows.Forms.Button btnClearCharts;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartPie_1;
         private System.Windows.Forms.Label lblFilePath;
-        private System.Windows.Forms.Button btnReOpenFile;
         private System.Windows.Forms.Button btnOpenNotePad;
         private System.Windows.Forms.Button btnOpenClusterView;
     }

@@ -6,8 +6,14 @@ using System.Threading.Tasks;
 
 namespace MathVectorCharts_MVP.ViewModels
 {
+    /// <summary>
+    /// Класс, содержащий информацию, необходимую для построения круговой диаграммы
+    /// </summary>
     public class PieChartInfo
     {
+        /// <summary>
+        /// Массив с информацией о кусочках диаграммы
+        /// </summary>
         public List<PieOfChartInfo> Values { get; set; } = new List<PieOfChartInfo>();
     }
 }

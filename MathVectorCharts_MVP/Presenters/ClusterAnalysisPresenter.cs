@@ -1,4 +1,5 @@
-﻿using MathVectorCharts_MVP.Services;
+﻿using Clustering;
+using MathVectorCharts_MVP.Services;
 using MathVectorCharts_MVP.Views;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace MathVectorCharts_MVP.Presenters
 {
+    /// <summary>
+    /// Презентер для формы кластерного анализа
+    /// </summary>
     public class ClusterAnalysisPresenter : IPresenter
     {
         private IClusterAnalysisView _view;
@@ -21,14 +25,18 @@ namespace MathVectorCharts_MVP.Presenters
             _view = view;
             _service = service;
 
-            _view.OpenFileClick += () => ShowFileSelector();
-            _view.RenderChartClick += () => RenderChart();
-            _view.OpenNotePadClick += () => OpenFileViaNotePad();
-            _view.ClearChartsClick += () => ClearChart();
-            _view.ChangeFilePath += (filePath) => FilePath = filePath;
-            _view.ChangeCountClusters += (countClusters) => _countClusters = countClusters;
-            _view.ClusteringAlgorithmTypeChanged += (type) => _clusteringAlgorithmType = type;
+            // Подписываемся на события view (можно вынести в отдельный метод)
+            _view.OpenFileClick += () => OnOpenFileClicked();
+            _view.RenderChartClick += () => OnRenderChartClicked();
+            _view.OpenNotePadClick += () => OnOpenFileViaNotePad();
+            _view.ChangeFilePath += (filePath) => OnFilePathChanged(filePath);
+            _view.ChangeCountClusters += (countClusters) => OnCountClustersChanged(countClusters);
+            _view.ClusteringAlgorithmTypeChanged += (type) => OnClusteringAlgorithmTypeChanged(type);
         }
+        
+        /// <summary>
+        /// Путь к файлу
+        /// </summary>
         public string FilePath
         {
             get
@@ -38,15 +46,46 @@ namespace MathVectorCharts_MVP.Presenters
             set
             {
                 _filePath = value;
-                _view.SetLabelFilePath(value);
             }
         }
-        public void RenderChart()
+
+        /// <summary>
+        /// Метод, вызывающийся при изменении пути к файлу
+        /// </summary>
+        /// <param name="filePath">Путь к файлу</param>
+        public void OnFilePathChanged(string filePath)
+        {
+            _filePath = filePath;
+            _view.SetLabelFilePath(filePath);
+        }
+
+        /// <summary>
+        /// Метод, вызывающийся при изменении числа кластеров
+        /// </summary>
+        /// <param name="count"></param>
+        public void OnCountClustersChanged(int count)
+        {
+            _countClusters = count;
+        }
+
+        /// <summary>
+        /// Метод, вызывающийся при изменении алгоритма кластеризации
+        /// </summary>
+        /// <param name="type"></param>
+        public void OnClusteringAlgorithmTypeChanged(ClusteringAlgorithmType type)
+        {
+            _clusteringAlgorithmType = type;
+        }
+
+        /// <summary>
+        /// Метод, вызвающийся при нажатии на кнопку "Отрисовать диаграммы"
+        /// </summary>
+        public void OnRenderChartClicked()
         {
             try
             {
-                ClearChart();
-                var pointsClusters = _service.LoadPointClustering(_filePath, _clusteringAlgorithmType, _countClusters);
+                _view.ClearChart();
+                PointClusters pointsClusters = _service.LoadPointClustering(_filePath, _clusteringAlgorithmType, _countClusters);
                 _view.RenderChart(pointsClusters);
             }
             catch (Exception ex)
@@ -55,23 +94,25 @@ namespace MathVectorCharts_MVP.Presenters
             }
         }
 
-        public void ShowFileSelector()
+        /// <summary>
+        /// Метод, вызывающийся при нажатии на кнопку "Открыть файл"
+        /// </summary>
+        public void OnOpenFileClicked()
         {
-            if (_view.ShowFileSelector() == System.Windows.Forms.DialogResult.OK)
+            var resultFileDialog = _view.ShowFileSelector();
+            if (resultFileDialog == System.Windows.Forms.DialogResult.OK)
             {
-                ShowRenderMessageBox();
+                if (_view.ShowDialogYesNo("Построить графики?") == System.Windows.Forms.DialogResult.Yes)
+                {
+                    OnRenderChartClicked();
+                }    
             }
         }
 
-        public void ShowRenderMessageBox()
-        {
-            if (_view.ShowRenderMessageBox() == System.Windows.Forms.DialogResult.Yes)
-            {
-                RenderChart();
-            }
-        }
-
-        public void OpenFileViaNotePad()
+        /// <summary>
+        /// Метод, вызвающийся при нажатии на кнопку "Открыть файл в блокноте"
+        /// </summary>
+        public void OnOpenFileViaNotePad()
         {
             try
             {
@@ -83,10 +124,6 @@ namespace MathVectorCharts_MVP.Presenters
             }
         }
 
-        public void ClearChart()
-        {
-            _view.ClearChart();
-        }
         public void Close()
         {
             throw new NotImplementedException();

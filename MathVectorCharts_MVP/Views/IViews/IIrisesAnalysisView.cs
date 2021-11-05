@@ -12,12 +12,11 @@ namespace MathVectorCharts_MVP.Views
         void SetLabelFilePath(string filePath);
         void OpenFileViaNotePad(string filePath);
         DialogResult ShowFileSelector();
-        DialogResult ShowRenderMessageBox();
+        DialogResult ShowDialogYesNo(string text);
         void ClearAllCharts();
         event Action OpenFileClick;
         event Action RenderChartsClick;
         event Action OpenNotePadClick;
-        event Action ReOpenFileClick;
         event Action ClearChartsClick;
         event Action<string> ChangeFilePath;
         event Action OpenClusterViewClick;

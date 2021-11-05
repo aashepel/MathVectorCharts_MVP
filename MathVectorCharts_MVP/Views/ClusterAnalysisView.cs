@@ -23,8 +23,6 @@ namespace MathVectorCharts_MVP.Views
 
         public event Action OpenNotePadClick;
 
-        public event Action ClearChartsClick;
-
         public event Action<string> ChangeFilePath;
 
         public event Action<int> ChangeCountClusters;
@@ -35,10 +33,11 @@ namespace MathVectorCharts_MVP.Views
         {
             InitializeComponent();
 
+            // Получаем значения из Enum типы алгоритмов и устанавливаем их в comboBox c выбором типа
             comboBoxAlgClasterization.DataSource = Enum.GetValues(typeof(ClusteringAlgorithmType));
             comboBoxAlgClasterization.SelectedIndex = 0;
 
-
+            // Прокидываем события кнопочек и т.п во view
             btnOpenFile.Click += (s, args) => OpenFileClick?.Invoke();
             btnRenderChart.Click += (s, args) => RenderChartClick?.Invoke();
             btnOpenFileViaNotepad.Click += (s, args) => OpenNotePadClick?.Invoke();
@@ -47,6 +46,9 @@ namespace MathVectorCharts_MVP.Views
 
         }
 
+        /// <summary>
+        /// Метод для очистки диаграммы
+        /// </summary>
         void IClusterAnalysisView.ClearChart()
         {
             chart1.Series.Clear();
@@ -56,11 +58,19 @@ namespace MathVectorCharts_MVP.Views
             chart1.ChartAreas.Add("Area 1");
         }
 
+        /// <summary>
+        /// Метод для открытия файла в блокноте
+        /// </summary>
+        /// <param name="filePath"></param>
         void IClusterAnalysisView.OpenFileViaNotePad(string filePath)
         {
             Process.Start("C:\\Windows\\System32\\notepad.exe", filePath);
         }
 
+        /// <summary>
+        /// Метод для отрисовки диаграммы
+        /// </summary>
+        /// <param name="clusters">Центроиды и точки по кластерам</param>
         void IClusterAnalysisView.RenderChart(PointClusters clusters)
         {
             int index = 0;
@@ -86,25 +96,30 @@ namespace MathVectorCharts_MVP.Views
             {
                 centersSeries.Points.AddXY(cluster.Key[0], cluster.Key[1]);
             }
-
-            //string messageBoxText = "";
-            //foreach (var centroid in clusters.PC.Keys.OrderByDescending(p => p[0]).ThenByDescending(p => p[1]))
-            //{
-            //    messageBoxText += centroid + ", ";
-            //}
-            //MessageBox.Show(messageBoxText);
         }
 
+        /// <summary>
+        /// Метод для изменения текста в label путь к файлу
+        /// </summary>
+        /// <param name="filePath"></param>
         void IClusterAnalysisView.SetLabelFilePath(string filePath)
         {
             lblFilePath.Text = filePath;
         }
 
+        /// <summary>
+        /// Метод для отображения сообщения об ошибке
+        /// </summary>
+        /// <param name="message">Сообщение</param>
         void IView.ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Метод для отображения окна выбора файла
+        /// </summary>
+        /// <returns>OK or Cancel</returns>
         DialogResult IClusterAnalysisView.ShowFileSelector()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -118,9 +133,14 @@ namespace MathVectorCharts_MVP.Views
             return resultDialog;
         }
 
-        DialogResult IClusterAnalysisView.ShowRenderMessageBox()
+        /// <summary>
+        /// Метод для отображения диалога YesNo
+        /// </summary>
+        /// <param name="text">Текст сообщения</param>
+        /// <returns>Yes or No</returns>
+        DialogResult IClusterAnalysisView.ShowDialogYesNo(string text)
         {
-            var resultDialog = MessageBox.Show("Построить графики?", "Диалог", MessageBoxButtons.YesNo);
+            var resultDialog = MessageBox.Show(text, "Диалог", MessageBoxButtons.YesNo);
             return resultDialog;
         }
     }

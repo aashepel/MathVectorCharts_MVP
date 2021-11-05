@@ -6,9 +6,19 @@ using System.Threading.Tasks;
 
 namespace MathVectorCharts_MVP.ViewModels
 {
+    /// <summary>
+    /// Класс, содержащий информацию о конкретном столбце диаграммы
+    /// </summary>
     public class BarOfChartInfo
     {
+        /// <summary>
+        /// Заголовок столбца для легенды
+        /// </summary>
         public string TitleBar { get; set; }
+
+        /// <summary>
+        /// Значение
+        /// </summary>
         public double Value { get; set; }
     }
 }

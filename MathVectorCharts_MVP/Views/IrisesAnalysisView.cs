@@ -11,24 +11,28 @@ namespace MathVectorCharts_MVP.Views
 {
     public partial class IrisesAnalysisView : Form, IIrisesAnalysisView
     {
-        List<Chart> _barCharts = new List<Chart>();
+        private List<Chart> _barCharts = new List<Chart>();
 
         public event Action OpenFileClick;
+
         public event Action RenderChartsClick;
+
         public event Action OpenNotePadClick;
-        public event Action ReOpenFileClick;
+
         public event Action ClearChartsClick;
+
         public event Action<string> ChangeFilePath;
+
         public event Action OpenClusterViewClick;
 
         public IrisesAnalysisView()
         {
             InitializeComponent();
 
+            // Прокидываем события кнопочек и т.п во view
             btnOpenFile.Click += (sender, args) => OpenFileClick?.Invoke();
             btnRenderCharts.Click += (sender, args) => RenderChartsClick?.Invoke();
             btnOpenNotePad.Click += (sender, args) => OpenNotePadClick?.Invoke();
-            btnReOpenFile.Click += (sender, args) => ReOpenFileClick?.Invoke();
             btnClearCharts.Click += (sender, args) => ClearChartsClick?.Invoke();
             btnOpenClusterView.Click += (sender, args) => OpenClusterViewClick?.Invoke();
 
@@ -38,6 +42,10 @@ namespace MathVectorCharts_MVP.Views
             _barCharts.Add(chartBar_4);
         }
 
+        /// <summary>
+        /// Метод для отрисовки столбчатых диаграмм
+        /// </summary>
+        /// <param name="chartsInfo">Массив информации о диаграммах</param>
         void IIrisesAnalysisView.RenderBarCharts(List<BarChartInfo> chartsInfo)
         {
             for (int i = 0; i < _barCharts.Count; i++)
@@ -60,6 +68,10 @@ namespace MathVectorCharts_MVP.Views
             }
         }
 
+        /// <summary>
+        /// Метод для отрисовки круговой диаграммы
+        /// </summary>
+        /// <param name="pieChartInfo">Информация о круговой диаграмме</param>
         void IIrisesAnalysisView.RenderPieChart(PieChartInfo pieChartInfo)
         {
             chartPie_1.ChartAreas.Clear();
@@ -75,6 +87,11 @@ namespace MathVectorCharts_MVP.Views
                 addedSeries.Points[indexAddedPoints].LegendText = value.TitlePie;
             }
         }
+
+        /// <summary>
+        /// Метод для отображения окна выбора файла
+        /// </summary>
+        /// <returns>OK or Cancel</returns>
         DialogResult IIrisesAnalysisView.ShowFileSelector()
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -90,11 +107,18 @@ namespace MathVectorCharts_MVP.Views
             return dialogResult;
         }
 
+        /// <summary>
+        /// Метод для отображения сообщения об ошибке
+        /// </summary>
+        /// <param name="message">Сообщение</param>
         public void ShowErrorMessage(string message)
         {
             MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Метод для очистки всех диаграмм
+        /// </summary>
         void IIrisesAnalysisView.ClearAllCharts()
         {
             chartPie_1.Series.Clear();
@@ -110,16 +134,30 @@ namespace MathVectorCharts_MVP.Views
             }
         }
 
+        /// <summary>
+        /// Метод для открытия файла в блокноте
+        /// </summary>
+        /// <param name="filePath">Путь к файлу</param>
         void IIrisesAnalysisView.OpenFileViaNotePad(string filePath)
         {
             Process.Start("C:\\Windows\\System32\\notepad.exe", filePath);
         }
 
-        DialogResult IIrisesAnalysisView.ShowRenderMessageBox()
+        /// <summary>
+        /// Метод для отображения диалога YesNo
+        /// </summary>
+        /// <param name="text">Текст сообщения</param>
+        /// <returns>Yes or No</returns>
+        DialogResult IIrisesAnalysisView.ShowDialogYesNo(string text)
         {
-            var resultDialog = MessageBox.Show("Построить графики?", "Диалог", MessageBoxButtons.YesNo);
+            var resultDialog = MessageBox.Show(text, "Диалог", MessageBoxButtons.YesNo);
             return resultDialog;
         }
+
+        /// <summary>
+        /// Метод для изменения текста в label путь к файлу
+        /// </summary>
+        /// <param name="filePath"></param>
         void IIrisesAnalysisView.SetLabelFilePath(string filePath)
         {
             lblFilePath.Text = filePath;
@@ -127,12 +165,12 @@ namespace MathVectorCharts_MVP.Views
 
         void IView.Show()
         {
-            this.Show();
+            Show();
         }
 
         void IView.Close()
         {
-            this.Close();
+            Close();
         }
     }
 }

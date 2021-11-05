@@ -18,37 +18,49 @@ namespace MathVectorCharts_MVP.Presenters
             _view = view;
             _service = service;
 
-            _view.OpenFileClick += () => ShowFileSelector();
-            _view.RenderChartsClick += () => RenderAllCharts();
-            _view.OpenNotePadClick += () => OpenFileViaNotePad();
-            _view.ReOpenFileClick += () => ReLoadCharts();
-            _view.ClearChartsClick += () => _view.ClearAllCharts();
-            _view.OpenClusterViewClick += () => OpenClusterView();
-            _view.ChangeFilePath += filePath => FilePath = filePath;
+            // Подписываемся на события view
+            _view.OpenFileClick += () => OnOpenFileClicked();
+            _view.RenderChartsClick += () => OnRenderChartsClicked();
+            _view.OpenNotePadClick += () => OnOpenFileViaNotePadClicked();
+            _view.ClearChartsClick += () => OnClearChartsClicked();
+            _view.OpenClusterViewClick += () => OnOpenClusterViewClicked();
+            _view.ChangeFilePath += filePath => OnFilePathChanged(filePath);
         }
 
-        public string FilePath
+        /// <summary>
+        /// Метод вызывающийся при измненении пути к файлу
+        /// </summary>
+        /// <param name="filePath">Путь к файлу</param>
+        public void OnFilePathChanged(string filePath)
         {
-            get
-            {
-                return _filePath;
-            }
-            set
-            {
-                _filePath = value;
-                _view.SetLabelFilePath(value);
-            }
+            _filePath = filePath;
+            // Выставляем путь к файлу в label во view
+            _view.SetLabelFilePath(filePath);
         }
 
-        public void OpenClusterView()
+        /// <summary>
+        /// Метод, вызывающийся при нажатии на кнопку "Кластерный анализ"
+        /// </summary>
+        public void OnOpenClusterViewClicked()
         {
-            IClusterAnalysisView view = new ClusterAnalysisView();
-            IClusteringService service = new ClusteringService();
-            ClusterAnalysisPresenter _clusterAnalysisPresenter = new ClusterAnalysisPresenter(view, service);
+            IClusterAnalysisView view = new ClusterAnalysisView(); // Создаем view
+            IClusteringService service = new ClusteringService(); // Создаем сервис кластеризации
+            ClusterAnalysisPresenter _clusterAnalysisPresenter = new ClusterAnalysisPresenter(view, service); // Делаем привязку
             view.Show();
         }
 
-        public void RenderAllCharts()
+        /// <summary>
+        /// Метод, вызывающийся при нажатии на кнопку очистки диаграмм
+        /// </summary>
+        public void OnClearChartsClicked()
+        {
+            _view.ClearAllCharts();
+        }
+
+        /// <summary>
+        /// Метод, вызывающийся при нажатии на кнопку "Пострить диаграммы"
+        /// </summary>
+        public void OnRenderChartsClicked()
         {
             try
             {
@@ -63,23 +75,27 @@ namespace MathVectorCharts_MVP.Presenters
             }
         }
 
-        public void ShowFileSelector()
+        /// <summary>
+        /// Метод, вызывающийся при нажатии на кнопку "Открыть файл"
+        /// </summary>
+        public void OnOpenFileClicked()
         {
+            // Если в результате показа окна выбора файла, файл был выбран
             if (_view.ShowFileSelector() == System.Windows.Forms.DialogResult.OK)
             {
-                ShowRenderMessageBox();
+                // Если в результате показа диалога был выбран ответ OK, вызываем метод отвечающий за построение диаграмм
+                if (_view.ShowDialogYesNo("Построить графики?") == System.Windows.Forms.DialogResult.Yes)
+                {
+                    // Метод отвечающий за построение диаграмм
+                    OnRenderChartsClicked();
+                }
             }
         }
 
-        public void ShowRenderMessageBox()
-        {
-            if (_view.ShowRenderMessageBox() == System.Windows.Forms.DialogResult.Yes)
-            {
-                RenderAllCharts();
-            }
-        }
-
-        public void OpenFileViaNotePad()
+        /// <summary>
+        /// Метод, вызывающийся при нажатии на кнопку "Открыть файл в блокноте"
+        /// </summary>
+        public void OnOpenFileViaNotePadClicked()
         {
             try
             {
@@ -91,26 +107,14 @@ namespace MathVectorCharts_MVP.Presenters
             }
         }
 
-        public void ReLoadCharts()
-        {
-            try
-            {
-                RenderAllCharts();
-            }
-            catch (Exception ex)
-            {
-                _view.ShowErrorMessage(ex.Message);
-            }
-        }
-
         public void Show()
         {
-            _view.Show();
+            throw new NotImplementedException();
         }
 
         public void Close()
         {
-            _view.Close();
+            throw new NotImplementedException();
         }
     }
 }

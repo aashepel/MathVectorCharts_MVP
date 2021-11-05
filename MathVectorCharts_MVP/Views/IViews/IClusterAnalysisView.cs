@@ -15,12 +15,11 @@ namespace MathVectorCharts_MVP.Views
         void SetLabelFilePath(string filePath);
         void OpenFileViaNotePad(string filePath);
         DialogResult ShowFileSelector();
-        DialogResult ShowRenderMessageBox();
+        DialogResult ShowDialogYesNo(string text);
         void ClearChart();
         event Action OpenFileClick;
         event Action RenderChartClick;
         event Action OpenNotePadClick;
-        event Action ClearChartsClick;
         event Action<string> ChangeFilePath;
         event Action<int> ChangeCountClusters;
         event Action<ClusteringAlgorithmType> ClusteringAlgorithmTypeChanged;
