@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathVectorCharts_MVP.ViewModels
+namespace MathVectorCharts_MVP.Entites
 {
     /// <summary>
     /// Класс, содержащий информацию о конкретном столбце диаграммы

@@ -1,6 +1,4 @@
-﻿using MathVectorCharts_MVP.Presenters;
-using MathVectorCharts_MVP.Services;
-using MathVectorCharts_MVP.ViewModels;
+﻿using MathVectorCharts_MVP.Entites;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

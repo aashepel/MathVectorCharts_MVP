@@ -1,7 +1,6 @@
-﻿using MathVectorCharts_MVP.Models;
+﻿using MathVectorCharts_MVP.Entites;
 using MathVectorCharts_MVP.Tools.Parsers;
 using MathVectorCharts_MVP.Tools.Parsers.Interfaces;
-using MathVectorCharts_MVP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

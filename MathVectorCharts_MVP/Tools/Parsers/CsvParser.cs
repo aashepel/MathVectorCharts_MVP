@@ -1,5 +1,5 @@
-﻿using MathVectorCharts_MVP.Exceptions;
-using MathVectorCharts_MVP.Models;
+﻿using MathVectorCharts_MVP.Entites;
+using MathVectorCharts_MVP.Exceptions;
 using MathVectorCharts_MVP.Tools.Parsers.Interfaces;
 using System;
 using System.Collections.Generic;

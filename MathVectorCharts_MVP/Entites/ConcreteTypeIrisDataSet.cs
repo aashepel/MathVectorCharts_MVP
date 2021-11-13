@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathVectorCharts_MVP.Models
+namespace MathVectorCharts_MVP.Entites
 {
     public class ConcreteTypeIrisDataSet
     {

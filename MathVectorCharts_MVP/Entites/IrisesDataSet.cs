@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MathVectorCharts_MVP.Models
+namespace MathVectorCharts_MVP.Entites
 {
     /// <summary>
     /// Дата-сет ирисов из файла

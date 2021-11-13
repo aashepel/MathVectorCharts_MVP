@@ -1,5 +1,4 @@
-﻿using MathVectorCharts_MVP.Models;
-using MathVectorCharts_MVP.ViewModels;
+﻿using MathVectorCharts_MVP.Entites;
 using System;
 using System.Collections.Generic;
 using System.Linq;
