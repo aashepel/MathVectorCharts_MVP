@@ -19,11 +19,11 @@ namespace MathVectorCharts_MVP.Tools.Parsers
         protected bool _successfullyParsed = false; // Успешно ли был "распарсен" файл по последнему пути (Если путь к файлу меняется - принимается значение false)
         protected List<string> _headers; // Заголовки (актуально для csv файлов. Возможно, пригодится для остальных типов)
         protected string _filePath; // Путь к файлу
-        protected int _maxFileSize; // Максимальный размер файла для "парсинга" (по умолчанию 1 МБ)
-        public AbstractParser(string filePath, int maxFileSize = 1024 * 1024)
+        protected int _maxFileSizeBytes = 1024 * 1024; // Максимальный размер файла в байтах
+        public AbstractParser(string filePath, int maxFileSizeBytes = 1024 * 1024)
         {
             _filePath = filePath;
-            _maxFileSize = maxFileSize;
+            _maxFileSizeBytes = maxFileSizeBytes;
             // Если путь к файлу указан, сразу проверяем основные параметры файла
             if (filePath != null)
             {
@@ -101,9 +101,13 @@ namespace MathVectorCharts_MVP.Tools.Parsers
         private void ValidateSizeFile()
         {
             var fileInfo = new FileInfo(_filePath);
-            if (fileInfo.Length > _maxFileSize)
+            if (fileInfo.Length > _maxFileSizeBytes)
             {
                 throw new ExceededAllowedFileLengthException();
+            }
+            if (fileInfo.Length == 0)
+            {
+                throw new ExceededAllowedFileLengthException("Файл не может быть пустым");
             }
         }
 

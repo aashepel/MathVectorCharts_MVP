@@ -54,6 +54,7 @@ namespace Clustering
                 UpdateMeans();
                 UpdateCentroids();
             }
+            Console.WriteLine(cnt);
 
             _points = _points.OrderBy(p => p.Id).ThenBy(p => p.Point[0]).ThenBy(p => p.Point[1]).ToList();
 
@@ -163,8 +164,6 @@ namespace Clustering
             MathVector firstCentroid = _points[index].Point;
             _clusters.Add(new Cluster(firstCentroid, 0));
             clustersCentersIndexes.Add(index);
-
-
 
             while (clustersCentersIndexes.Count != _countClusters)
             {
